@@ -1,0 +1,124 @@
+<!-- End Row -->
+<!-- Row -->
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card card-outline-inverse">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Concepto de cobro en lempiras</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 70%">Descripcion</th>
+                            <th scope="col" style="width: 20%">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of ConceptoCobro">
+                            <td style="width: 70%">{{item.Descripcion}}</td>
+                            <td style="width: 30%">
+                                <div class="input-group input-group-sm mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">LPS.</span>
+                                    </div>
+                                    <input (input)="CalcularDatos($event.target.value, item.ID)" type="number"
+                                        class="form-control form-control-sm" placeholder="{{item.Valor | number : '1.2-2'}}"
+                                        aria-describedby="basic-addon1">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="text-align: center">
+                    <button type="button" class="btn btn-primary" (click)="AddConceptoCobro()">&nbsp;Actualizar
+                        Datos&nbsp;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="col-sm-12">
+            <div class="card card-outline-inverse">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Fechas de configuracion para correo</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            <label>Anterior</label>
+                            <input [(ngModel)]="FechaAnterior" [ngModelOptions]="{standalone: true}" type="date"
+                                class="form-control form-control-sm">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Actual</label>
+                            <input [(ngModel)]="FechaActual" [ngModelOptions]="{standalone: true}" type="date"
+                                class="form-control form-control-sm">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Vencimiento</label>
+                            <input [(ngModel)]="FechaVencimiento" [ngModelOptions]="{standalone: true}" type="date"
+                                class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            <label>Hora</label>
+                            <input [(ngModel)]="Hora" [ngModelOptions]="{standalone: true}" type="time"
+                                class="form-control form-control-sm">
+                        </div>
+
+                        <div class="col-sm-8">
+                            <br>
+                            <button (click)="AddFechas()" type="button" class="btn btn-primary">&nbsp;Actualizar
+                                Datos&nbsp;</button>
+                        </div>
+                    </div>
+                    <br>
+
+ 
+
+                    <hr>
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Anterior</th>
+                                <th scope="col">Actual</th>
+                                <th scope="col">Vencimiento</th>
+                                <th scope="col">Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of FechaFactura">
+                                <td>{{item.FechaInicio | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{item.FechaFin | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{item.FechaVencimiento | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{item.Hora | date: 'hh:mm a':'-0600'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="card card-outline-inverse">
+                <div class="card-header">
+                    <h4 class="m-b-0 text-white">Activar envio de correo</h4>
+                </div>
+                <div class="card-body">
+                    <div class="switch_box box_1">
+                        <input (change)="ServicioActivo()" [(ngModel)]="Activo" [ngModelOptions]="{standalone: true}"
+                            type="checkbox" class="switch_1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="col-12">
+          <div class="form-row">
+
+            <div class="col-6">
+              <h3 class="card-title">CONFIGURACIÓN DEL SISTEMA</h3>
+              <h6 class="card-subtitle">Sistema de facturación</h6>
+            </div>
+
+            <div class="col-6" style="text-align:right;">
+              <button type="button" class="btn btn-info btn-sb" (click)="RecargarData()">Recargar</button>
+            </div>
+
+          </div>
+        </div>
+        <ngb-tabset [justify]="currentJustify">
+
+          <ngb-tab title="Cliente - Medidor">
+            <ng-template ngbTabContent>
+              <br>
+              <div class="form-row col-12">
+                <div class="col-2">
+                  <label class="font-weight-bold" style="font-size:small;">TORRE</label>
+                  <select (change)="FiltrarCliente()" class="form-control form-control-sm" [(ngModel)]="cmbTorre"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0" selected>...</option>
+                    <option *ngFor="let item of Torre" value="{{item.ID}}">{{item.Torre}}</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <label class="font-weight-bold" style="font-size:small;">CLIENTE</label>
+                  <select (change)="BuscarCliente()" [(ngModel)]="Cliente_Medidor" [ngModelOptions]="{standalone: true}"
+                    class="form-control form-control-sm">
+                    <option value="0" selected>...</option>
+                    <option *ngFor="let item of ClienteMedFil" value="{{item.ID}}">{{item.Name}}</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <label class="font-weight-bold" style="font-size:small;">NOMBRE</label>
+                  <input style="text-transform:uppercase;" [(ngModel)]="Cliente_Nombre"
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-sm"
+                    placeholder="Cliente">
+                </div>
+                <div class="col-4">
+                  <label class="font-weight-bold" style="font-size:small;">...</label>
+                  <br>
+                  <button type="button" class="btn btn-success btn-sm"
+                    (click)="GuardarMedidorCliente()">Agregar</button>
+                </div>
+              </div>
+
+              <br>
+              <hr>
+              <div class="form-row">
+                <div class="col-4" style="text-align:right;">
+                  <input (keyup)="FilterTabla()" style="text-transform:uppercase;" [(ngModel)]="Busqueda"
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-sm"
+                    placeholder="Cliente">
+                </div>
+                <div class="col-4">
+                  <select (change)="FilterTablaByTorre()" class="form-control form-control-sm" [(ngModel)]="cmbTorreFiltro"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0" selected>...</option>
+                    <option *ngFor="let item of Torre" value="{{item.ID}}">{{item.Torre}}</option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <table class="table table-sm" [mfData]="MedidorCliente" #mf="mfDataTable" [mfRowsOnPage]="5">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" style="width: 10%">
+                      <mfDefaultSorter by="name">Medidor</mfDefaultSorter>
+                    </th>
+                    <th scope="col" style="width: 10%">
+                      <mfDefaultSorter by="name">Torre</mfDefaultSorter>
+                    </th>
+                    <th scope="col" style="width: 30%">
+                      <mfDefaultSorter by="email">Cliente</mfDefaultSorter>
+                    </th>
+                    <th scope="col" style="width: 30%">
+                      <mfDefaultSorter by="name">Correo</mfDefaultSorter>
+                    </th>
+                    <th scope="col" style="width: 10%">
+                      <mfDefaultSorter by="name">Saldo</mfDefaultSorter>
+                    </th>
+                    <th scope="col" style="width: 10%">...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of mf.data">
+                    <th scope="row" style="width: 10%">{{item.Nombre}}</th>
+                    <th scope="row" style="width: 10%">{{item.Torre}}</th>
+                    <td style="width: 30%; text-transform:uppercase;">
+                      <input style="text-transform:uppercase;" placeholder="{{item.Cliente}}" type="text"
+                        class="form-control form-control-sm" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-sm" #NuevoNombre>
+                    </td>
+                    <td scope="row" style="width: 30%">
+                      <input placeholder="{{item.Correo}}" type="text" class="form-control form-control-sm"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" #correo>
+                    </td>
+                    <td scope="row" style="width: 10%">
+                      <input placeholder="{{item.Saldo}}" type="text" class="form-control form-control-sm"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" #saldo>
+                    </td>
+                    <td scope="row" style="width: 10%">
+                      <button type="button" class="btn btn-primary btn-sm"
+                        (click)="ActualizarCliente(item.ID, NuevoNombre.value, item.Medidor, correo.value, saldo.value, item.Cliente, item.Correo, item.Saldo)">Actualizar</button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">
+                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab title="Consumo - Torre">
+            <ng-template ngbTabContent>
+              <br>
+              <table class="table table-sm" style="font-size:small;">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" style="width: 20%">ULTIMA ACTUALIZACION</th>
+                    <th scope="col" style="width: 30%">TORRE</th>
+                    <th scope="col" style="width: 30%">VALOR (kWh)</th>
+                    <th scope="col" style="width: 20%">...</th>
+                  </tr>
+                <tbody>
+                  <tr *ngFor="let item of ConsumoEnee">
+                    <th scope="row" style="width: 20%">{{item.Fecha | date: 'yyyy-MM-dd'}}</th>
+                    <th scope="row" style="width: 30%">{{NomreTorre(item.idTorre)}}</th>
+                    <td style="width: 30%">
+                      <div class="input-group input-group-sm col-10">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">kWh</span>
+                        </div>
+                        <input placeholder="{{item.Consumo}}" type="number" class="form-control form-control-sm"
+                          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" #valorConsumo>
+                      </div>
+                    </td>
+                    <td style="width: 20%">
+                      <button type="button" class="btn btn-success btn-sm"
+                        (click)="ActualizarConsumo(item.ID, valorConsumo.value)">Actualizar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab title="kWh - Lps">
+            <ng-template ngbTabContent>
+              <br>
+              <table class="table table-sm" style="font-size:small;">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" style="width: 50%">VALOR (Lps.)</th>
+                    <th scope="col" style="width: 50%">...</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of kWh">
+                    <td style="width: 30%">
+                      <div class="input-group input-group-sm col-10">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">Lps.</span>
+                        </div>
+                        <input placeholder="{{item.valor}}" type="number" class="form-control form-control-sm"
+                          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" #valorkWh>
+                      </div>
+                    </td>
+                    <td style="width: 30%">
+                      <button type="button" class="btn btn-success btn-sm"
+                        (click)="ActualizarkWh(item.id, valorkWh.value)">Actualizar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </ngb-tab>
+
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

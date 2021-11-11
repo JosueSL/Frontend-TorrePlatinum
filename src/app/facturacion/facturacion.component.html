@@ -1,0 +1,583 @@
+<div class="form.row">
+    <button type="button" (click)="CargarDatosGenerales()" class="btn btn-info btn-sm doNotPrint">RECARGAR</button>
+    &nbsp;
+    <button type="button" (click)="LimpiarConceptoCobro(1)" class="btn btn-danger btn-sm doNotPrint">LIMPIAR</button>
+    &nbsp;
+    <button *ngIf="Nulos" (click)="ModalLG(Advertencia)" class="btn btn-outline-warning btn-sm doNotPrint"
+        type="button">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        ADVERTENCIA!
+    </button>
+</div>
+
+<br>
+<br>
+<div id="impresion">
+    <div class="form-row">
+        <div class="col-6" style="text-align:right;">
+            <img width="25%" height="130px" src="../../assets/images/background/logo-pequeno.png">
+        </div>
+        <div class="col-6" style="text-align:left;">
+            <br>
+            <label class="font-weight-bold"
+                style="text-align:center; color: #c19700; font-size:large;">INMOBILIARIA</label><br>
+            <label class="font-weight-bold" style="text-align: center; font-size:large;">PALMA REAL</label>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="form-row">
+        <div class="col-3">
+            <button type="button" class="btn btn-link text-decoration-none" style="font-size:small;"
+                (click)="ModalLG(content)">DATOS DEL CLIENTE</button>
+            &nbsp;
+        </div>
+        <div class="col-9">
+            <hr style="border:1px dotted black; widows: 100%;" />
+        </div>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <!--DATOS DE ENCABEZADO-->
+            <div class="form-row">
+                <!--DATOS DEL CLIENTE-->
+                <div class="col-sm-2">
+                    <p class="espacio-texto">
+                        <label class="font-weight-bold" style="font-size:medium;">{{Cliente_Codigo}}</label><br>
+                        <label style="font-size:small;">CODIGO CLIENTE:</label><br>
+                        <label style="font-size:small;">Apartamento {{Cliente_N_Medidor}}</label>
+                    </p>
+                </div>
+
+                <div class="col-sm-6 LineaVFuerte">
+                    <p class="espacio-texto">
+                        <label class="font-weight-bold" style="font-size:small;">NOMBRE:&nbsp;</label><label
+                            style="font-size:small; text-transform:uppercase;">{{Cliente_Nombre}}</label>
+                        <br>
+                        <label style="font-size:small; text-transform:uppercase;"><b class="font-weight-bold">DIRECCION:</b>&nbsp;LOMAS
+                            DEL
+                            GUIJARRO POR EDIFICIO TORRE {{NombreTorre}}</label><br>
+                        <label style="font-size:small;"><b
+                                class="font-weight-bold">UBICACION:</b>&nbsp;001-812-034</label>
+                    </p>
+                </div>
+
+                <div class="col-sm-4 LineaVFuerte">
+                    <p class="text-justify espacio-texto">
+                        <label style="font-size:small;"><b class="font-weight-bold">FECHA DE
+                                EMISION:</b>&nbsp;{{FechaActual | date:'dd/MM/yyyy'}}</label><br>
+                        <label style="font-size:small;"><b class="font-weight-bold">FECHA DE
+                                VENCIMIENTO:</b>&nbsp;{{Fecha_Vencimiento.day}}/{{Fecha_Vencimiento.month}}/{{Fecha_Vencimiento.year}}</label><br>
+                        <label style="font-size:small;"><b class="font-weight-bold">PERIODO:</b>&nbsp;
+                            {{FechaFormatI}} Al {{FechaFormatF}}
+                        </label>
+                        <br/>
+                        <label style="font-size:small;"><b class="font-weight-bold">DIAS DE
+                                FACTURACION:</b>&nbsp;{{dias_facturados}}</label><br>
+                        <label style="font-size:small;"><b class="font-weight-bold">NUMERO DE
+                                FACTURAS:</b>&nbsp;{{numero_factura}}{{Cliente_N_Medidor}}</label>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="border:1px dotted black; widows: 100%;" />
+    <div class="card">
+        <table class="table table-borderless table-sm">
+            <thead class="text-dark bg-light">
+                <tr style="text-align:center; font-size:small;">
+                    <th scope="col" class="font-weight-bold" style="width:16%">CONSUMO</th>
+                    <th scope="col" class="font-weight-bold" style="width:18%">FECHA VENCIMIENTO</th>
+                    <th scope="col" class="font-weight-bold" style="width:16%">TOTAL A PAGAR</th>
+                    <th scope="col" class="font-weight-bold" style="width:50%">DATOS TECNICOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="text-align:center; font-size:small;">
+
+                    <td style="width:16%">
+                        <br>
+                        <label
+                            class="cuadro_rojo font-weight-bold">{{ ClienteConsumoTotal*Multiplicador | number : '1.2-2'}}</label>
+                    </td>
+                    <td style="width:18%">
+                        <br>
+                        <label
+                            class="cuadro_amarillo font-weight-bold">{{Fecha_Vencimiento.day}}/{{Fecha_Vencimiento.month}}/{{Fecha_Vencimiento.year}}</label>
+                    </td>
+                    <td style="width:16%">
+                        <br>
+                        <label class="cuadro_verde font-weight-bold">L.
+                            {{(LPS*(ClienteConsumoTotal*Multiplicador)) | number : '2.2-2'}}</label>
+                    </td>
+
+                    <td style="text-align:left; width:50%;" class="LineaVSuave separado">
+                        <br>
+                        <p class="espacio-texto">
+                            <label><b class="font-weight-bold">NUMERO DE
+                                    MEDIDOR:</b>&nbsp;{{Cliente_Codigo}}</label><br>
+                            <label><b class="font-weight-bold">TARIFA:</b>&nbsp;202</label><br>
+                            <label><b class="font-weight-bold">TIPO DE CONSUMO:</b>&nbsp;
+                                COMERCIAL</label><br>
+                            <label><b class="font-weight-bold">OFICINA COMERCIAL:</b>&nbsp;TEGUCIGALPA</label>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr style="border:1px dotted black; widows: 100%;" />
+    <div class="card">
+        <div class="text-dark bg-light font-weight-bold" style="text-align:center; font-size:small;">
+            DETALLE DE CONSUMO DE ENERGIA
+        </div>
+        <h6> </h6>
+        <!--DATOS DEL CLIENTE-->
+        <table class="table table-sm table-borderless" style="text-align:center; font-size:small;">
+            <thead class="thead-light">
+                <tr>
+                    <!--DATOS DE ENCABEZADO-->
+                    <th class="text-black font-weight-bold"></th>
+                    <th scope="col" class="text-black font-weight-bold" style="text-align:center; font-size:small;">
+                        LECTURA ACTUAL
+                    </th>
+                    <th class="font-weight-bold text-black" style="text-align:center; font-size:small;">
+                        LECTURA ANTERIOR
+                    </th>
+                    <th class="text-black  font-weight-bold" style="text-align:center; font-size:small;">
+                        DIFERENCIA
+                    </th>
+                    <th class="text-black font-weight-bold" style="text-align:center; font-size:small;">
+                        MULTIPLICADOR
+                    </th>
+                    <th class="text-black font-weight-bold" style="text-align:center; font-size:small;">
+                        CONSUMO
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">FECHA</td>
+                    <td>{{FechaFormatF}}</td>
+                    <td>{{FechaFormatI}}</td>
+                </tr>
+                <tr>
+                    <td scope="row">ENERGIA ACTIVA</td>
+                    <td>{{Cliente_Consumo2 | number: '1.2-2'}}</td>
+                    <td>{{Cliente_Consumo1 | number: '1.2-2'}}</td>
+                    <td>{{ClienteConsumoTotal | number : '1.2-2'}}</td>
+                    <td>{{Multiplicador | number : '1.2-2'}}</td>
+                    <td>{{ ClienteConsumoTotal*Multiplicador | number : '1.2-2'}} kWh</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr style="border:1px dotted black; widows: 100%;" />
+    <div class="card">
+        <div class="text-dark bg-light font-weight-bold" style="text-align:center; font-size:small;">
+            CALCULO DE CONSUMO DE ENERGIA
+        </div>
+        <h1> </h1>
+        <!--DATOS DEL CLIENTE-->
+        <table class="table table-borderless table-sm">
+            <thead class="thead-light">
+                <!--DATOS DE ENCABEZADO-->
+                <tr>
+                    <th scope="col" class="  font-weight-bold text-black" style="text-align:center; font-size:small;">
+                        CARGO
+                    </th>
+                    <th scope="col" class="  font-weight-bold text-black" style="text-align:center; font-size:small;">
+                        L/kWh
+                    </th>
+                    <th scope="col" class="  font-weight-bold text-black" style="text-align:center; font-size:small;">
+                        CONSUMO
+                    </th>
+                    <th scope="col" class="  font-weight-bold text-black" style="text-align:center; font-size:small;">
+                        VALOR LEMPIRAS
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row" class="text-black" style="text-align:center; font-size:small;">
+                        ENERGIA ACTIVA
+                    </td>
+                    <td class="text-black" style="text-align:center; font-size:small;">
+                        {{LPS}}
+                    </td>
+                    <td class="text-black" style="text-align:center; font-size:small;">
+                        {{ ClienteConsumoTotal*Multiplicador | number : '1.2-2'}} kWh
+                    </td>
+                    <td class="text-black" style="text-align:center; font-size:small;">
+                        {{(LPS*(ClienteConsumoTotal*Multiplicador)) | number : '1.2-2'}} LPS.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    <div class="card">
+        <div class="form-row">
+            <div class="col-6 LineaVSuaveD">
+                <div class="text-dark bg-light font-weight-bold" style="text-align:center; font-size:small;">
+                    <button type="button" class="btn btn-light btn-sm btn-lg btn-block active"
+                        (click)="ModalLG(ConceptoCobro)">CONCEPTO DE COBRO EN LEMPIRAS</button>
+                </div>
+                <div class="card-body espacio-margen">
+                    <div class="form-row" style="text-align:center; font-size:small;">
+                        <!--DATOS DEL CLIENTE-->
+
+                        <div class="form-row col-12">
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                    <tr class="espacio-texto font-weight-bold" *ngFor="let item of ConceptoCobroLps">
+                                        <td scope="row" style="text-align:left;">{{item.concepto}}</td>
+                                        <td style="text-align:right; font-size:small;">L.
+                                            {{item.valor | number : '1.2-2'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-dark bg-light font-weight-bold" style="text-align:center; font-size:small;">
+                    <!--HISTORICO DE CONSUMO-->
+                    <button type="button" class="btn btn-light btn-sm btn-lg btn-block active">HISTORICO DE
+                        CONSUMO</button>
+                </div>
+
+                <div class="col-12">
+                    <div>
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+                            [chartType]="barChartType"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-inline">
+            <div class="col-6">
+                <hr>
+            </div>
+
+            <div class="col-6">
+                <hr style="border:1px dotted black; widows: 100%;" />
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row text-dark">
+        <div class="col-6">
+            <div class="card bg-secondary">
+                <div class="col-12">
+                    <div class="form-row">
+                        <div class="col-6">
+                            <div class="font-weight-bold" style="font-size:medium;">
+                                {{Cliente_Codigo}}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="font-weight-bold" style="font-size:medium;">
+                                CODIGO CLIENTE
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border:1px dotted white; widows: 100%;" />
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-6">
+                            <p class="espacio-texto" style="text-align:left;">
+                                <label class="font-weight-bold" style="font-size:medium;">
+                                    TOTAL MES L.
+                                </label><br>
+                                <label style="font-size:medium;" class="font-weight-normal">
+                                    SALDO PENDIENTE L.
+                                </label><br>
+                                <label class="font-weight-bold" style="font-size:medium;">
+                                    TOTAL A PAGAR L.
+                                </label><br>
+                            </p>
+                        </div>
+
+                        <div class="col-6">
+                            <p class="espacio-texto" style="text-align:right;">
+                                <label class="font-weight-bold"
+                                    style="font-size:medium;">{{ TotalFactura | number : '1.2-2'}}</label><br>
+                                <label class="font-weight-normal"
+                                    style="font-size:medium;">{{SaldoPendiente | number : '1.2-2'}}</label><br>
+                                <label class="font-weight-bold"
+                                    style="font-size:medium;">{{ TotalFactura + SaldoPendiente | number : '1.2-2'}}</label><br>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--VENTANA MODAL PARA CONFIGURACION-->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <form class="form-inline">
+            <label class="my-1 mr-2 font-weight-bold">TORRE</label>
+            <select (change)="FiltrarCliente()" class="custom-select my-1 mr-sm-2" [(ngModel)]="cmbTorre"
+                [ngModelOptions]="{standalone: true}">
+                <option value="0" selected>...</option>
+                <option *ngFor="let item of Torre" value="{{item.ID}}">{{item.Torre}}</option>
+            </select>
+        </form>
+
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <!--
+        <div class="form-row col-12">
+            <div class="form-group col-3">
+                <label class="font-weight-bold" style="font-size:small;">CLIENTE</label>
+                <select (change)="ObtenerCodigo()" [(ngModel)]="Cliente_Medidor" [ngModelOptions]="{standalone: true}"
+                    class="form-control form-control-sm">
+                    <option value="0">...</option>
+                    <option *ngFor="let item of ClienteMedFil" value="{{item.ID}}">{{item.Name}}</option>
+                </select>
+            </div>
+        -->
+        <div class="col-12">
+            <label class="font-weight-bold" style="font-size:small;">CLIENTE</label>
+            <ng-multiselect-dropdown [placeholder]="'Cliente'" [data]="ClienteMedFil" [(ngModel)]="Cliente_Medidor"
+                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)">
+            </ng-multiselect-dropdown>
+        </div>
+        <br>
+        <div class="form-row col-12">
+            <div class="form-group col-8">
+                <label class="font-weight-bold" style="font-size:small;">NOMBRE</label>
+                <input style="text-transform:uppercase;" [(ngModel)]="Cliente_Nombre"
+                    [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-sm"
+                    placeholder="Cliente">
+            </div>
+
+            <div class="form-group col-4">
+                <label class="font-weight-bold" style="font-size:small;">VENCIMIENTO</label>
+                <form class="form-inline">
+
+                    <div class="input-group">
+                        <input (change)="mensaje()" [(ngModel)]="Fecha_Vencimiento"
+                            [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-sm"
+                            placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-row col-12">
+        <div class="card bg-light col-5">
+            <div class="card-body">
+                <label
+                    class="font-weight-bold">DEL:</label>&nbsp;<label>{{FechaInicio.day}}/{{FechaInicio.month}}/{{FechaInicio.year}}</label>
+                <br>
+                <label
+                    class="font-weight-bold">AL:</label>&nbsp;<label>{{FechaFinal.day}}/{{FechaFinal.month}}/{{FechaFinal.year}}</label>
+                <br>
+                <label class="font-weight-bold">DIAS DE
+                    FACTURACION:</label>&nbsp;<label>{{this.dias_facturados}}</label>
+            </div>
+        </div>
+        <div class="col-1/12">
+        </div>
+
+        <div class="card bg-light col-6">
+            <div class="card-body">
+                <label class="font-weight-bold">CONSUMO:</label>&nbsp;<label>{{Enee_Consumo}}</label>
+                <br>
+                <label class="font-weight-bold">ULTIMA
+                    MODIFICACIÓN:</label>&nbsp;<label>{{Enee_Fecha | date: 'dd-MM-yyyy'}}</label>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        &nbsp;
+        <div class="form-group col-12" style="text-align:center !important">
+            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                outsideDays="hidden">
+            </ngb-datepicker>
+
+            <ng-template #t let-date let-focused="focused">
+                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                </span>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="ObtenerConsumo(); c('Close click')">Obtener
+            Datos</button>
+        <button type="button" class="btn btn-light" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #ConceptoCobro let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <form class="form-inline">
+            <label class="my-1 mr-2 font-weight-bold">CONCEPTO DE COBRO</label>
+        </form>
+
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <table class="table table-sm" style="font-size:small;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" style="width: 70%">CONCEPTO</th>
+                    <th scope="col" style="width: 30%">VALOR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of ConceptoCobroLps">
+                    <th scope="row" style="width: 70%">{{item.concepto}}</th>
+                    <td style="width: 30%">
+                        <div class="input-group input-group-sm col-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Lps.</span>
+                            </div>
+                            <input (change)="CalcularTotal(item.id, valor.value)" placeholder="{{item.valor}}"
+                                type="number" class="form-control form-control-sm" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" #valor>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="thead-light">
+                    <th scope="row" style="width: 70%">SALDO PENDIENTE</th>
+                    <td style="width: 30%">
+                        <div class="input-group input-group-sm col-10">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Lps.</span>
+                            </div>
+                            <input [(ngModel)]="SaldoPendiente" [ngModelOptions]="{standalone: true}" type="number"
+                                class="form-control form-control-sm" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+
+    </div>
+</ng-template>
+
+<ng-template #Advertencia let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <form class="form-inline">
+            <label class="my-1 mr-2 font-weight-bold">Advertencia</label>
+        </form>
+
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <ngb-tabset [justify]="currentJustify">
+
+            <ngb-tab title="Fechas nulas">
+                <ng-template ngbTabContent>
+                    <br>
+                    <table class="table table-sm" [mfData]="ListaNulos" #mf="mfDataTable" [mfRowsOnPage]="5">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Datos Nulos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of mf.data">
+                                <th scope="row">{{item.Fecha}}</th>
+                                <td>{{item.Cantidad}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </ng-template>
+            </ngb-tab>
+
+            <ngb-tab title="Fechas vacias">
+                <ng-template ngbTabContent>
+                    <br>
+                    <table class="table table-sm" [mfData]="ListaVacios" #mf="mfDataTable" [mfRowsOnPage]="5">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Datos Vacios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of mf.data">
+                                <th scope="row">{{item.Fecha}}</th>
+                                <td>{{item.Cantidad}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </ng-template>
+            </ngb-tab>
+
+        </ngb-tabset>
+
+    </div>
+
+    <div class="modal-footer">
+
+    </div>
+</ng-template>

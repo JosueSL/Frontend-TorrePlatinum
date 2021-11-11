@@ -1,0 +1,26 @@
+.fondo{
+    background-color: #242a33;
+}
+
+.centro {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+ }
+
+ input:focus{
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75) !important;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75) !important;
+ }
+
+ .sinborde {
+    outline: none;
+    outline-color: white;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color:  #c19700;
+  }

@@ -1,0 +1,37 @@
+<div class="centro">
+  <div class="card-group">
+    <div class="card fondo">
+      <div class="card-body">
+        <div class="form-row only_print">
+          <div class="col-6" style="text-align:right;">
+            <img width="80%" height="130px" src="../../assets/images/background/logo-pequeno.png">
+          </div>
+          <div class="col-6" style="text-align:left;">
+            <br>
+            <label class="font-weight-bold"
+              style="text-align:center; color: #c19700; font-size:large;">INMOBILIARIA</label><br>
+            <label class="font-weight-bold" style="text-align: center; color: white; font-size:large;">PALMA
+              REAL</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <input type="email" class="form-control sinborde" aria-describedby="emailHelp" placeholder="Usuario" [(ngModel)]="usuario"
+            [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control sinborde" placeholder="Contraseña" [(ngModel)]="password"
+            [ngModelOptions]="{standalone: true}">
+            <small class="form-text text-muted">No comparta su contraseña con nadie.</small>
+          </div>
+          <button class="btn btn-lg btn-block active" style="background-color: #c19700; color: white;" (click)="VerificarUsuario()">Iniciar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

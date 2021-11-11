@@ -1,0 +1,92 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper" [ngClass]="
+    {
+        'defaultdark': color == 'defaultdark',
+        'mini-sidebar': showMinisidebar
+    }
+">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar doNotPrint">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+            <!--
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    <b>
+                        <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                        <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                    </b>
+
+                    <span>
+                     <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" /> 
+                     <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
+            </div>
+            -->
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+
+            <div class="navbar-collapse">
+                <app-navigation class="w-100" (toggleSidebar)="toggleSidebar()"></app-navigation>
+            </div>
+            <div class="navbar-header" style="text-align:right">
+                <button type="button" class="btn btn-link text-decoration-none" style="font-size:small;"
+                (click)="logout()">CERRAR SESION</button>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar doNotPrint">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar" [perfectScrollbar]="config">
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <app-breadcrumb class="doNotPrint"></app-breadcrumb>
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <router-outlet></router-outlet>
+            <!-- ============================================================== -->
+            <!-- End Start Page Content -->
+            <!-- ============================================================== -->
+            
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer doNotPrint">
+        © Falcon Ingenieria.
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+
+</div>

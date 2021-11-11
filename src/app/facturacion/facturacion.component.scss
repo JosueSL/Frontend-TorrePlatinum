@@ -1,0 +1,107 @@
+.espacio-texto{ line-height: 10px;}
+
+.espacio-margen {
+    margin: 15px;
+}
+
+.botttom-padding{
+    padding-bottom: -1rem;
+}
+
+.cuadro_rojo {
+    width:125px;
+    padding: 18px;
+    background-color: #FFC8C8;
+    border-radius: 5px; 
+}
+
+.cuadro_amarillo {
+    width:125px;
+    padding: 18px;
+    background-color: #FFEAB7;
+    border-radius: 5px; 
+}
+
+.cuadro_verde {
+    width:125px;
+    padding: 18px;
+    background-color: #D6F8DE;
+    border-radius: 5px; 
+}
+
+.card{
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+//Rango de fechas del calendario
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+  }
+  .custom-day.focused {
+    background-color: #e6e6e6;
+  }
+  .custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+  }
+  .custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+  }
+
+
+  @media print {
+    #container #content #main {
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
+      margin-left: -0.25rem !important;
+  }
+
+  BODY { background-color: white; font-family: "Times New Roman", Times, serif; font-size: 12pt; color: black }
+
+  .table th { 
+    background-color: #edeff1 !important; 
+} 
+
+  html, body {
+    height: auto;
+  }
+
+    .doNotPrint{display:none !important;}
+  }
+
+@media screen {
+  .only_print{
+    display:none;
+}
+}
+
+  .LineaVSuave{
+		border-left: 1px dashed rgba(0,0,0,0.5);
+  }
+
+  .LineaVSuaveD{
+		border-right: 1px dashed rgba(0,0,0,0.5);
+  }
+  
+	.LineaVFuerte{
+    border-left: 2px solid black;
+    padding-left: 50px;
+  }
+
+  .fondo{
+    background-color: black;
+  }
+  
+  .separado{
+    padding-left: 30px;
+  }
+
+  .cabecera{
+    background-color: #D7D7D7 !important; 
+  }
